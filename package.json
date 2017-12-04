@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@mapbox/togeojson": "^0.16.0",
+    "geojson": "^0.5.0",
     "vue": "^2.5.3",
     "vue-router": "^3.0.1",
     "vue2-mapboxgl-component": "^0.2.0",

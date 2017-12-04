@@ -1,5 +1,9 @@
 <template>
   <div id='map'>
+    <v-progress-linear
+      class='ma-0'
+      v-model="progress">
+    </v-progress-linear>
   </div>
 </template>
 
@@ -10,21 +14,28 @@ import geojson from 'geojson'
 export default {
   data () {
     return {
-      map: null
+      map: null,
+      progress: 100
     }
   },
   computed: {
     trackGeojson () {
       return this.$store.getters.track
     },
+    tracksCount () {
+      return this.trackGeojson ? this.trackGeojson.features.length : 0
+    },
     explorerZoom () {
       return this.$store.state.explorerZoom
     }
   },
   watch: {
-    trackGeojson () {
-      this.map.getSource('track').setData(this.trackGeojson)
-      this.fillExplorerLayer()
+    tracksCount () {
+      this.progress = this.tracksCount / 895 * 100
+      if (this.tracksCount === 895) {
+        this.map.getSource('track').setData(this.trackGeojson)
+      // this.fillExplorerLayer()
+      }
     },
     explorerZoom () {
       this.fillExplorerLayer()

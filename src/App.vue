@@ -39,6 +39,7 @@
       style="display: none"
       ref="fileInput"
       accept="text/xml text/gpx-xml text/gpx application/gpx-xml application/gpx"
+      multiple
       @change="filePicked">
     <app-explorer-zoom
       style="display: none"
@@ -82,12 +83,21 @@ export default {
       // if (filename.lastIndexOf('.') <= 0) {
       //   return alert('Please add a valid file!')
       // }
-      const fileReader = new FileReader()
-      fileReader.addEventListener('load', () => {
-        const gpx = new DOMParser().parseFromString(fileReader.result, 'text/xml')
-        this.$store.dispatch('setTrack', togeojson.gpx(gpx))
+      Object.values(files).forEach(file => {
+        const fileReader = new FileReader()
+        fileReader.onload = () => {
+          const gpx = new DOMParser().parseFromString(fileReader.result, 'text/xml')
+          let tracks = this.$store.getters.track
+          const track = togeojson.gpx(gpx)
+          if (tracks) {
+            tracks.features = tracks.features.concat(track.features)
+          } else {
+            tracks = track
+          }
+          this.$store.dispatch('setTrack', tracks)
+        }
+        fileReader.readAsText(file, 'utf8')
       })
-      fileReader.readAsText(files[0], 'utf8')
     }
   }
 }

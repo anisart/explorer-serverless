@@ -31,11 +31,11 @@ export default {
   },
   watch: {
     tracksCount () {
-      this.progress = this.tracksCount / 895 * 100
-      if (this.tracksCount === 895) {
-        this.map.getSource('track').setData(this.trackGeojson)
-      // this.fillExplorerLayer()
-      }
+      // this.progress = this.tracksCount / 895 * 100
+      // if (this.tracksCount === 895) {
+      this.map.getSource('track').setData(this.trackGeojson)
+      this.fillExplorerLayer()
+      // }
     },
     explorerZoom () {
       this.fillExplorerLayer()

@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" scrollable max-width="300px">
       <v-btn color="primary" dark slot="activator">Open Dialog</v-btn>
       <v-card>
-        <v-card-title>Select explorer tile size</v-card-title>
+        <v-card-title class="headline">Select explorer tile size</v-card-title>
         <v-divider></v-divider>
         <v-card-text style="height: 300px;">
           <v-radio-group v-model="dialogValue" column>
@@ -16,6 +16,7 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
+          <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>

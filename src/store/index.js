@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     track: null,
-    explorerZoom: '14'
+    explorerZoom: '14',
+    firstTiles: null,
+    secondTiles: null
   },
   mutations: {
     setTrack (state, payload) {
@@ -14,6 +16,12 @@ export const store = new Vuex.Store({
     },
     setExplorerZoom (state, payload) {
       state.explorerZoom = payload
+    },
+    setFirstTiles (state, payload) {
+      state.firstTiles = payload
+    },
+    setSecondTiles (state, payload) {
+      state.secondTiles = payload
     }
   },
   actions: {
@@ -22,6 +30,12 @@ export const store = new Vuex.Store({
     },
     setExplorerZoom ({ commit }, payload) {
       commit('setExplorerZoom', payload)
+    },
+    setFirstTiles ({ commit }, payload) {
+      commit('setFirstTiles', payload)
+    },
+    setSecondTiles ({ commit }, payload) {
+      commit('setSecondTiles', payload)
     }
   },
   getters: {
@@ -30,6 +44,12 @@ export const store = new Vuex.Store({
     },
     explorerZoom (state) {
       return state.explorerZoom
+    },
+    firstTiles (state) {
+      return state.firstTiles
+    },
+    secondTiles (state) {
+      return state.secondTiles
     }
   }
 })

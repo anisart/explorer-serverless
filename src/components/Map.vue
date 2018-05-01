@@ -27,6 +27,12 @@ export default {
     },
     explorerZoom () {
       return this.$store.state.explorerZoom
+    },
+    firstTiles () {
+      return this.$store.state.firstTiles
+    },
+    secondTiles () {
+      return this.$store.state.secondTiles
     }
   },
   watch: {
@@ -39,6 +45,10 @@ export default {
     },
     explorerZoom () {
       this.fillExplorerLayer()
+    },
+    firstTiles () {
+      this.map.getSource('explorer').setData(this.getCompareTiles(this.firstTiles))
+      this.map.getSource('explorer2').setData(this.getCompareTiles(this.secondTiles))
     }
   },
   methods: {
@@ -94,6 +104,21 @@ export default {
           'fill-opacity': 0.3
         }
       })
+
+      this.map.addSource('explorer2', {
+        type: 'geojson',
+        data: null
+      })
+
+      this.map.addLayer({
+        id: 'explorer2',
+        type: 'fill',
+        source: 'explorer2',
+        paint: {
+          'fill-color': '#f00',
+          'fill-opacity': 0.3
+        }
+      })
     },
     fillExplorerLayer () {
       if (this.trackGeojson === null) return
@@ -130,6 +155,25 @@ export default {
         }
         polygons.push(polygon)
       }
+      return geojson.parse(polygons, { Polygon: 'polygon' })
+    },
+    getCompareTiles (tiles) {
+      const polygons = []
+      tiles.forEach(tile => {
+        const bbox = tile2bbox(tile.x, tile.y, 14)
+        const polygon = {
+          polygon: [
+            [
+              [bbox.west, bbox.north],
+              [bbox.east, bbox.north],
+              [bbox.east, bbox.south],
+              [bbox.west, bbox.south],
+              [bbox.west, bbox.north]
+            ]
+          ]
+        }
+        polygons.push(polygon)
+      })
       return geojson.parse(polygons, { Polygon: 'polygon' })
     }
   },

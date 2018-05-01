@@ -27,6 +27,8 @@
     <input type="file" style="display: none" ref="fileInput" accept="text/xml text/gpx-xml text/gpx application/gpx-xml application/gpx" multiple @change="filePicked">
     <app-explorer-zoom style="display: none" ref="explorerZoom">
     </app-explorer-zoom>
+    <app-compare-vv style="display: none" ref="compareVv">
+    </app-compare-vv>
     <v-content fluid>
       <router-view></router-view>
     </v-content>
@@ -44,7 +46,8 @@ export default {
       sideNav: false,
       menuItems: [
         { title: 'Upload track', icon: 'file_upload', action: 'uploadFile' },
-        { title: 'Explorer', icon: 'widgets', action: 'toggleExplorer' }
+        { title: 'Explorer', icon: 'widgets', action: 'toggleExplorer' },
+        { title: 'Compare VV', icon: 'compare', action: 'compareVv' }
       ]
     }
   },
@@ -57,6 +60,9 @@ export default {
           break
         case 'toggleExplorer':
           this.$refs.explorerZoom.dialog = true
+          break
+        case 'compareVv':
+          this.$refs.compareVv.dialog = true
           break
       }
     },

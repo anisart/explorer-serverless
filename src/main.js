@@ -7,8 +7,10 @@ import App from './App'
 import router from './router'
 import { store } from './store'
 import ExplorerZoom from './components/ExplorerZoomDialog'
+import CompareVv from './components/CompareVvDialog'
 
 Vue.component('app-explorer-zoom', ExplorerZoom)
+Vue.component('app-compare-vv', CompareVv)
 
 Vue.use(Vuetify, {
   theme: {
